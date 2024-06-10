@@ -30,6 +30,10 @@ class Quiz {
   }
 
   hasEnded() {
-    if (this.currentQuestionIndex > this.questions.length)
-  } return false
+    if (this.currentQuestionIndex < this.questions.length) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
