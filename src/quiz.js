@@ -35,8 +35,8 @@
             
             checkAnswer(answer){
 
-                if (typeof this.correctAnswers === "number"){
-                    return  this.correctAnswers += 1;
+                if (this.questions[currentQuestionIndex].answer === answer){
+                    return this.correctAnswers += 1;
                 }
 
             }
