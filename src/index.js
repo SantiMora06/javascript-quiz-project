@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Add more questions here
   ];
-  const quizDuration = 120; // 120 seconds (2 minutes)
+  let quizDuration = 120; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -53,6 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
   /************  SHOW INITIAL CONTENT  ************/
 
   // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+  
+  
+  
   const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
   const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
 
@@ -66,7 +69,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /************  TIMER  ************/
 
-  let timer;
+let timeRemaining = quiz.timeRemaining;
+
+function updateTimes() { 
+  const timeRemainingContainer = document.getElementById("timeRemaining");
+  const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, "0");
+  const seconds = (timeRemaining % 60).toString().padStart(2, "0");
+  timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+
+  //Within the updateTimes function, we ensure the time remaining is decremented, and if it reaches 0, we clear the interval to stop the countdown.
+
+  if (timeRemaining <= 0) {
+    clearInterval(timeInterval); // The setInterval method is used to call the updateTimes function every 1000 ms (1 second)
+    timeRemainingContainer.innerText = "00:00";
+  } else {
+    timeRemaining--;
+  }
+}
+
+const timeInterval = setInterval(updateTimes, 1000);
+
+updateTimes();
+
+
 
 
   /************  EVENT LISTENERS  ************/
@@ -233,6 +258,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${questions.length} correct answers!`; // This value is hardcoded as a placeholder
+ 
+    clearInterval(timeInterval);
   }
+
   
 });
+
+
+

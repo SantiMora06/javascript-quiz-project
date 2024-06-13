@@ -35,7 +35,7 @@
             
             checkAnswer(answer){
 
-                if (this.questions[currentQuestionIndex].answer === answer){
+                if (this.questions[this.currentQuestionIndex].answer === answer){
                     return this.correctAnswers += 1;
                 }
 
